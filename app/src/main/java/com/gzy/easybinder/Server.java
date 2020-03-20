@@ -23,6 +23,12 @@ public class Server extends Service {
 
     private List<Book> bookList = new ArrayList<>();
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        bookList.add(new Book(1, "Android第一行代码"));
+    }
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -41,29 +47,16 @@ public class Server extends Service {
         }
 
         @Override
-        protected boolean onTransact(int code, @NonNull Parcel data, @Nullable Parcel reply, int flags) throws RemoteException {
-            java.lang.String descriptor = DESCRIPTOR;
+        protected boolean onTransact(int code, @NonNull Parcel data, @Nullable Parcel reply, int flags)
+                throws RemoteException {
             switch (code) {
-                case INTERFACE_TRANSACTION: {
-                    reply.writeString(descriptor);
-                    return true;
-                }
                 case TRANSACTION_getBookList: {
-                    data.enforceInterface(descriptor);
-                    reply.writeNoException();
                     reply.writeTypedList(bookList);
                     return true;
                 }
                 case TRANSACTION_addBook: {
-                    data.enforceInterface(descriptor);
-                    Book _arg0;
-                    if ((0 != data.readInt())) {
-                        _arg0 = com.gzy.easybinder.Book.CREATOR.createFromParcel(data);
-                    } else {
-                        _arg0 = null;
-                    }
-                    bookList.add(_arg0);
-                    reply.writeNoException();
+                    Book book = com.gzy.easybinder.Book.CREATOR.createFromParcel(data);
+                    bookList.add(book);
                     return true;
                 }
                 default: {

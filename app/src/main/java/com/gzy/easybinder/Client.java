@@ -49,13 +49,10 @@ public class Client extends AppCompatActivity {
             android.os.Parcel _data = android.os.Parcel.obtain();
             android.os.Parcel _reply = android.os.Parcel.obtain();
 
-            Book book = new Book(1, "Android第一行代码");
+            Book book = new Book(2, "Android开发艺术探索");
             try {
-                _data.writeInterfaceToken(Server.DESCRIPTOR);
-                _data.writeInt(1);
                 book.writeToParcel(_data, 0);
                 service.transact(Server.TRANSACTION_addBook, _data, _reply, 0);
-                _reply.readException();
             } catch (RemoteException e) {
                 e.printStackTrace();
             } finally {
@@ -67,19 +64,17 @@ public class Client extends AppCompatActivity {
         private List<Book> getBook(IBinder service) {
             android.os.Parcel _data = android.os.Parcel.obtain();
             android.os.Parcel _reply = android.os.Parcel.obtain();
-            List<Book> _result = null;
+            List<Book> bookList = null;
             try {
-                _data.writeInterfaceToken(Server.DESCRIPTOR);
                 service.transact(Server.TRANSACTION_getBookList, _data, _reply, 0);
-                _reply.readException();
-                _result = _reply.createTypedArrayList(Book.CREATOR);
+                bookList = _reply.createTypedArrayList(Book.CREATOR);
             } catch (RemoteException e) {
                 e.printStackTrace();
             } finally {
                 _reply.recycle();
                 _data.recycle();
             }
-            return _result;
+            return bookList;
         }
 
         @Override
