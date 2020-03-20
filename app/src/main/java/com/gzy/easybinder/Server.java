@@ -14,20 +14,21 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 服务端
+ */
 public class Server extends Service {
 
-    public static final String DESCRIPTOR = "com.gzy.easybinder.IBookManager";
-
+    /**
+     * getBookList 方法标记
+     */
     public static final int TRANSACTION_getBookList = (android.os.IBinder.FIRST_CALL_TRANSACTION);
+    /**
+     * addBook 方法标记
+     */
     public static final int TRANSACTION_addBook = (android.os.IBinder.FIRST_CALL_TRANSACTION + 1);
 
     private List<Book> bookList = new ArrayList<>();
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        bookList.add(new Book(1, "Android第一行代码"));
-    }
 
     @Nullable
     @Override
@@ -35,11 +36,10 @@ public class Server extends Service {
         return new IBookManager();
     }
 
+    /**
+     * Binder
+     */
     private class IBookManager extends Binder implements IInterface {
-
-        IBookManager() {
-            this.attachInterface(this, DESCRIPTOR);
-        }
 
         @Override
         public IBinder asBinder() {
@@ -50,18 +50,16 @@ public class Server extends Service {
         protected boolean onTransact(int code, @NonNull Parcel data, @Nullable Parcel reply, int flags)
                 throws RemoteException {
             switch (code) {
-                case TRANSACTION_getBookList: {
+                case TRANSACTION_getBookList:
                     reply.writeTypedList(bookList);
                     return true;
-                }
-                case TRANSACTION_addBook: {
+                case TRANSACTION_addBook:
                     Book book = com.gzy.easybinder.Book.CREATOR.createFromParcel(data);
                     bookList.add(book);
                     return true;
-                }
-                default: {
+                default:
                     return super.onTransact(code, data, reply, flags);
-                }
+
             }
         }
     }

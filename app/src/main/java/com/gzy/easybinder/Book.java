@@ -3,6 +3,9 @@ package com.gzy.easybinder;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * Book 实体类
+ */
 public class Book implements Parcelable {
 
     private int bookId;
@@ -11,22 +14,6 @@ public class Book implements Parcelable {
 
     Book(int bookId, String bookName) {
         this.bookId = bookId;
-        this.bookName = bookName;
-    }
-
-    public int getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
-    }
-
-    public String getBookName() {
-        return bookName;
-    }
-
-    public void setBookName(String bookName) {
         this.bookName = bookName;
     }
 

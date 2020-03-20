@@ -13,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
 
+/**
+ * 客户端
+ */
 public class Client extends AppCompatActivity {
 
     private TextView mTextView;
@@ -36,6 +39,7 @@ public class Client extends AppCompatActivity {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             addBook(service);
+
             List<Book> bookList = getBook(service);
 
             StringBuilder stringBuilder = new StringBuilder();
