@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Parcel;
 import android.os.RemoteException;
 import android.widget.TextView;
 
@@ -50,7 +51,7 @@ public class Client extends AppCompatActivity {
         }
 
         private void addBook(IBinder service) {
-            android.os.Parcel _data = android.os.Parcel.obtain();
+            Parcel _data = Parcel.obtain();
 
             Book book = new Book(2, "Android开发艺术探索");
             try {
@@ -64,8 +65,8 @@ public class Client extends AppCompatActivity {
         }
 
         private List<Book> getBook(IBinder service) {
-            android.os.Parcel _data = android.os.Parcel.obtain();
-            android.os.Parcel _reply = android.os.Parcel.obtain();
+            Parcel _data = Parcel.obtain();
+            Parcel _reply = Parcel.obtain();
             List<Book> bookList = null;
             try {
                 service.transact(Server.TRANSACTION_getBookList, _data, _reply, 0);
