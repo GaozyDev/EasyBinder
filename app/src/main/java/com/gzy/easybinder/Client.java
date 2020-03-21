@@ -51,16 +51,14 @@ public class Client extends AppCompatActivity {
 
         private void addBook(IBinder service) {
             android.os.Parcel _data = android.os.Parcel.obtain();
-            android.os.Parcel _reply = android.os.Parcel.obtain();
 
             Book book = new Book(2, "Android开发艺术探索");
             try {
                 book.writeToParcel(_data, 0);
-                service.transact(Server.TRANSACTION_addBook, _data, _reply, 0);
+                service.transact(Server.TRANSACTION_addBook, _data, null, 0);
             } catch (RemoteException e) {
                 e.printStackTrace();
             } finally {
-                _reply.recycle();
                 _data.recycle();
             }
         }

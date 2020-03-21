@@ -54,7 +54,7 @@ public class Server extends Service {
                     reply.writeTypedList(bookList);
                     return true;
                 case TRANSACTION_addBook:
-                    Book book = com.gzy.easybinder.Book.CREATOR.createFromParcel(data);
+                    Book book = Book.CREATOR.createFromParcel(data);
                     bookList.add(book);
                     return true;
                 default:
