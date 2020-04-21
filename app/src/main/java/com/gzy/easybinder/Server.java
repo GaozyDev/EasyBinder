@@ -9,7 +9,8 @@ import android.os.Parcel;
 import android.os.RemoteException;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
+import com.gzy.easybinder.data.Book;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,6 @@ public class Server extends Service {
 
     private List<Book> bookList = new ArrayList<>();
 
-    @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         return new IBookManager();
@@ -47,7 +47,7 @@ public class Server extends Service {
         }
 
         @Override
-        protected boolean onTransact(int code, @NonNull Parcel data, @Nullable Parcel reply, int flags)
+        protected boolean onTransact(int code, @NonNull Parcel data, Parcel reply, int flags)
                 throws RemoteException {
             switch (code) {
                 case TRANSACTION_getBookList:
@@ -59,7 +59,6 @@ public class Server extends Service {
                     return true;
                 default:
                     return super.onTransact(code, data, reply, flags);
-
             }
         }
     }

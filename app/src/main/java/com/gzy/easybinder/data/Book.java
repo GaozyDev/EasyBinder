@@ -1,7 +1,9 @@
-package com.gzy.easybinder;
+package com.gzy.easybinder.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
 
 /**
  * Book 实体类
@@ -12,7 +14,7 @@ public class Book implements Parcelable {
 
     private String bookName;
 
-    Book(int bookId, String bookName) {
+    public Book(int bookId, String bookName) {
         this.bookId = bookId;
         this.bookName = bookName;
     }
@@ -42,6 +44,7 @@ public class Book implements Parcelable {
         bookName = in.readString();
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Book{" +
